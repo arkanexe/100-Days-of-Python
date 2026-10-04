@@ -18,7 +18,7 @@ tim = t.Turtle()
 #         tim.forward(100)
 #         tim.right(360 / i)
 
-t.colormode(255)
+tim.colormode(255)
 
 def random_color():
     r = random.randint(0, 255)

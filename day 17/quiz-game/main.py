@@ -10,9 +10,7 @@ for question in question_data:
 
 print(question_bank)
 
-from data import question_data
 from quiz_brain import QuizBrain
-from question_model import Question
 
 
 question_bank = []
