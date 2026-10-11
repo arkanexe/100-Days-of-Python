@@ -6,7 +6,7 @@ class Animal:
 
 class Fish(Animal):
     def __init__(self):
-        super.__init__()
+        super().__init__()
 
     def breathe(self):
         super().breathe()
