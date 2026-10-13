@@ -1,4 +1,3 @@
-
 from turtle import Turtle
 
 LINE_NUMBER = 25
