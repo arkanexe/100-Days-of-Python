@@ -21,9 +21,7 @@ while len(guessed_states) < 50:
             "state" : []
         }
 
-        for state in all_states:
-            if state not in guessed_states:
-                missed_state["state"].append(state)
+        missed_state["state"] = [state for state in all_states if state not in guessed_states]
 
         df = pd.DataFrame(missed_state)
         df.to_csv("state_to_learn.csv")
