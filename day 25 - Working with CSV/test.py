@@ -1,15 +1,23 @@
+from pathlib import Path
+
 import pandas as pd
 
-data = pd.read_csv("api_logs.csv")
+base_dir = Path(__file__).resolve().parent
+file_path = base_dir / "api_logs.csv"
 
-reponse_time = data["response_time_ms"].to_list()
+data = pd.read_csv(file_path)
 
-mean = sum(reponse_time) / len(reponse_time)
+response_times = data["response_time_ms"].to_list()
+mean = sum(response_times) / len(response_times)
 code_500 = data[data["status_code"] == 500]
+max_row = data.loc[data["response_time_ms"].idxmax()]
+endpoint = data["endpoint"].unique()
 
-max = data[data["response_time_ms"] == data["response_time_ms"].max()]
+print("Mean response time:", mean)
+print("500 status rows:\n", code_500)
+print("Slowest request:\n", max_row)
+print("Endpoints:", endpoint)
 
-endpoint = data[data["endpoint"]]
-print(max)
-post_request = data[data["method"] == "POST"]
-slow_post_request = post_request[post_request["reponse_time_ms"] > 500]
+post_requests = data[data["method"] == "POST"]
+slow_post_requests = post_requests[post_requests["response_time_ms"] > 500]
+print("Slow POST requests:\n", slow_post_requests)
