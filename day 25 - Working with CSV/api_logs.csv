@@ -1,0 +1,9 @@
+endpoint,method,status_code,response_time_ms
+/api/users,GET,200,45
+/api/login,POST,401,120
+/api/orders,POST,500,850
+/api/users,GET,200,55
+/api/orders,GET,200,210
+/api/login,POST,200,95
+/api/orders,POST,500,920
+/api/products,GET,404,30
