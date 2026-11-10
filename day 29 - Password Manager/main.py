@@ -44,33 +44,62 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
+# ---------------------------- SAVE PASSWORD ------------------------------- #
+
 def delete_entry():
     website_input.delete(0, END)
     password_input.delete(0, END)
     website_input.focus()
 
-def save ():
+
+def save():
     website = website_input.get().strip()
-    email = email_input.get()
+    email = email_input.get().strip()
     password = password_input.get()
 
-    if "" in (website, password, email):
-        messagebox.showerror(title="Oops", message="please don't leave any fields empty! ")
-
+    # Check for empty fields
+    if not website or not email or not password.strip():
+        messagebox.showerror(
+            title="Oops",
+            message="Please don't leave any fields empty!"
+        )
         return
 
-    is_ok = messagebox.askokcancel(title=website, message=f"these are the details entered \nEmail:{email} " f"\n {password} \n is it ok to save? ")
+    with open("data.txt", mode="a+", encoding="utf-8") as file:
+        file.seek(0)
 
-    if is_ok:
+        # Check for duplicate websites
+        for line in file:
+            saved_website = line.split("|")[0].strip()
 
-        with open("data.txt") as content:
-            if website not in content.read():
-                with open("data.txt", mode="a") as file:
-                        content = f"{website}  | {email} | {password} \n"
-                        file.write(content)
-                delete_entry()
+            if saved_website.casefold() == website.casefold():
+                messagebox.showwarning(
+                    title="Duplicate Website",
+                    message=f"{website} already exists!"
+                )
+                return
 
+        # This is OUTSIDE the for loop
+        is_ok = messagebox.askokcancel(
+            title=website,
+            message=(
+                f"These are the details entered:\n"
+                f"Email: {email}\n"
+                f"Password: {password}\n\n"
+                f"Is it okay to save?"
+            )
+        )
 
+        if is_ok:
+            content = f"{website} | {email} | {password}\n"
+            file.write(content)
+
+            delete_entry()
+
+            messagebox.showinfo(
+                title="Success",
+                message="Password saved successfully!"
+            )
 
 # ---------------------------- UI SETUP ------------------------------- #
 
