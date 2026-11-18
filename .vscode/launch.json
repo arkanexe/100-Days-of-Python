@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Dell/Desktop/The Journey/Python/day 25 - Working with CSV",
-      "program": "c:/Users/Dell/Desktop/The Journey/Python/day 25 - Working with CSV/build/Debug/outDebug",
+      "cwd": "c:/Users/Dell/Desktop/The Journey/Python",
+      "program": "c:/Users/Dell/Desktop/The Journey/Python/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

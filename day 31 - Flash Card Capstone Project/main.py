@@ -46,6 +46,15 @@ def is_known():
     data.to_csv("data/words_to_learn.csv", index=False)
 
     next_card()
+    known_count()
+
+def known_count():
+    known_length = len(to_learn)
+    original_length = len(pandas.read_csv("data/french_words.csv").to_dict(orient="records"))
+
+    total = (original_length - known_length)
+
+    count.config(text=f"Mastered Word: {total} / {original_length}")
 
 window = Tk()
 window.title("Flashy")
@@ -74,5 +83,9 @@ check_image = PhotoImage(file="images/right.png")
 known_button = Button(image=check_image, highlightthickness=0, command=is_known)
 known_button.grid(row=1, column=1)
 
+
+count = Label(text = "", bg=BACKGROUND_COLOR, font=("Arial", 26, "bold"))
+count.grid(row=2, column= 0, columnspan=2)
+known_count()
 next_card()
 window.mainloop()

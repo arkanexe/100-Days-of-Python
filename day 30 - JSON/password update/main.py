@@ -60,23 +60,48 @@ def save():
             password_entry.delete(0, END)
 
 # ----------------- RECOVER DATA----------------------------------------#
+
 def find_password():
     website = website_entry.get().strip()
 
-    if len(website) == 0:
-            messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty.")
+    if not website:
+        messagebox.showinfo(
+            title="Oops",
+            message="Please enter a website."
+        )
+        return
+
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+
+        email = data[website]["email"]
+        password = data[website]["password"]
+
+    except FileNotFoundError:
+        messagebox.showinfo(
+            title="Oops",
+            message="No Data File Found"
+        )
+
+    except json.JSONDecodeError:
+        messagebox.showerror(
+            title="Oops",
+            message="The data file contains invalid JSON."
+        )
+
+    except KeyError:
+        messagebox.showerror(
+            title="Oops",
+            message=f"No details for {website} exist"
+        )
+
     else:
-        try:
-                with open('data.json', "r") as file:
-                        data = json.load(file)
+        messagebox.showinfo(
+            title="Password Info",
+            message=f"Email: {email}\nPassword: {password}"
+        )
 
-
-        except FileNotFoundError:
-            messagebox.showinfo(title="Oops", message="No Data File Found")
-        except KeyError:
-            messagebox.showerror(title="Oops", message=f"No details for the {website} exists")
-        else:
-            messagebox.showinfo(title="Password Info", message=f"Email: {data[website]["email"]} \n Passowrd: {data[website]["password"]}")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
